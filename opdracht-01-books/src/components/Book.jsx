@@ -1,4 +1,4 @@
-const Books = ({title, desc, img}) => {
+const Book = ({title, desc, img}) => {
     return (
         <section className="Books-container">
             <img src={img} alt={title} />
@@ -8,4 +8,4 @@ const Books = ({title, desc, img}) => {
      );
 }
  
-export default Books
+export default Book
