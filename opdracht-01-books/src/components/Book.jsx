@@ -19,4 +19,4 @@ const Book = ({title, desc, img}) => {
      );
 }
  
-export default Book
+export default Book;
