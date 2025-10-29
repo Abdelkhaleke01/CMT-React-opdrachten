@@ -1,6 +1,8 @@
 import animals from './src/component/animals.js'; 
 import { useParams, useNavigate } from 'react-router-dom';
 import DetailPage from './pages/DetailPage'; 
+
+const animals = AnimalList.find(a => a.id === Number(animalId));
 const Product = ({ product, onShowDetail }) => {
   return (
     <section>

@@ -1,5 +1,5 @@
 import './App.css'
-import DetailPage from './pages/DetailPage'; 
+import  DetailPage  from './pages/DetailPage.jsx';
 function App() {
 
   return (
