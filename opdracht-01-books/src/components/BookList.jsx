@@ -1,33 +1,45 @@
 import { useState } from "react";
 import Book from "./Book";
 import BookCounter from "./BookCounter";
+import data from "../data";
 
 const BookList = () => {
-  const [books, setBooks] = useState([
-    {
-      title: "Harry Potter",
-      author: "J.K. Rowling",
-      image: "images/book-1.png",
-    },
-    {
-      title: "Fantasia VI",
-      author: "Geronimo Stilton",
-      image: "images/book-2.png",
-    },
-    {
-      title: "The Hunger Games",
-      author: "Suzanne Collins",
-      image: "images/book-3.png",
-    },
-  ]);
+  // 🔹 Boeken binnen je component
+  const [books, setBooks] = useState(data);
+
+  // 🔹 Zoekinput bewaren
+  const [searchInput, setSearchInput] = useState("");
+
+  // 🔹 Veranderingen in input opslaan
+  const handleChange = (e) => {
+    e.preventDefault();
+    setSearchInput(e.target.value);
+  };
+
+  // 🔹 Filteren op titel (niet hoofdlettergevoelig)
+  const filteredBooks = books.filter((book) =>
+    book.title.toLowerCase().includes(searchInput.toLowerCase())
+  );
 
   return (
     <section className="container">
-      {/* 🔹 Hier toon je het totaal aantal boeken */}
-      <BookCounter aantal={books.length} />
 
-      {/* 🔹 Hier toon je elk boek */}
-      {books.map((book, index) => (
+      {/* 🔹 Zoekbalk */}
+      <div className="search">
+        <input
+          type="text"
+          placeholder="Zoek een titel..."
+          onChange={handleChange}
+          value={searchInput}
+          name="search"
+        />
+      </div>
+
+      {/* 🔹 Totaal aantal boeken (gefilterd) */}
+      <BookCounter aantal={filteredBooks.length} />
+
+      {/* 🔹 Gefilterde boeken weergeven */}
+      {filteredBooks.map((book, index) => (
         <Book
           key={index}
           title={book.title}
@@ -35,6 +47,7 @@ const BookList = () => {
           img={book.image}
         />
       ))}
+
     </section>
   );
 };
