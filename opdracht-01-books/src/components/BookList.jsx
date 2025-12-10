@@ -4,26 +4,49 @@ import BookCounter from "./BookCounter";
 import data from "../data";
 
 const BookList = () => {
-  // 🔹 Boeken uit data laden
+  // 🔹 Boeken laden
   const [books] = useState(data);
 
-  // 🔹 Zoekinput opslaan
+  // 🔹 Zoekinput
   const [searchInput, setSearchInput] = useState("");
 
-  // 🔹 Input handler
+  // 🔹 Gekozen categorie
+  const [selectedCategory, setSelectedCategory] = useState("Alle");
+
+  // 🔹 Categorieën
+  const categories = [
+    "Alle",
+    "Fantasy",
+    "Avontuur",
+    "Sciencefiction",
+    "Thriller",
+    "Romance"
+  ];
+
+  // 🔹 Zoek handler
   const handleChange = (e) => {
     setSearchInput(e.target.value);
   };
 
-  // 🔹 Filter boeken (niet hoofdlettergevoelig)
-  const filteredBooks = books.filter((book) =>
-    book.title.toLowerCase().includes(searchInput.toLowerCase())
-  );
+  // 🔹 Filter handler
+  const filterHandler = (e) => {
+    setSelectedCategory(e.target.value);
+  };
+
+  // 🔹 Combineer zoek + categorie-filter
+  const filteredBooks = books
+    .filter((book) =>
+      book.title.toLowerCase().includes(searchInput.toLowerCase())
+    )
+    .filter((book) => {
+      if (selectedCategory === "Alle") return true;
+      return book.category === selectedCategory;
+    });
 
   return (
     <section className="container">
 
-      {/* 🔍 Zoekbalk */}
+      {/* 🔍 Zoekveld */}
       <div className="search">
         <input
           type="text"
@@ -34,16 +57,33 @@ const BookList = () => {
         />
       </div>
 
-    
+      {/* 🔽 Filter dropdown */}
+      <div className="filter">
+        <label htmlFor="category">Filter op categorie: </label>
+        <select
+          id="category"
+          value={selectedCategory}
+          onChange={filterHandler}
+        >
+          {categories.map((category, index) => (
+            <option key={index} value={category}>
+              {category}
+            </option>
+          ))}
+        </select>
+      </div>
+
+      {/* 📊 Counter */}
       <BookCounter aantal={filteredBooks.length} />
 
-      
+      {/* 📚 Boeken tonen */}
       {filteredBooks.map((book, index) => (
         <Book
           key={index}
           title={book.title}
           desc={book.author}
           img={book.image}
+          category={book.category} // ← niet vergeten!
         />
       ))}
 
