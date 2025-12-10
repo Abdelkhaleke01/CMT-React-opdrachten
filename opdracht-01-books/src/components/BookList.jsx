@@ -4,19 +4,18 @@ import BookCounter from "./BookCounter";
 import data from "../data";
 
 const BookList = () => {
-  // 🔹 Boeken binnen je component
-  const [books, setBooks] = useState(data);
+  // 🔹 Boeken uit data laden
+  const [books] = useState(data);
 
-  // 🔹 Zoekinput bewaren
+  // 🔹 Zoekinput opslaan
   const [searchInput, setSearchInput] = useState("");
 
-  // 🔹 Veranderingen in input opslaan
+  // 🔹 Input handler
   const handleChange = (e) => {
-    e.preventDefault();
     setSearchInput(e.target.value);
   };
 
-  // 🔹 Filteren op titel (niet hoofdlettergevoelig)
+  // 🔹 Filter boeken (niet hoofdlettergevoelig)
   const filteredBooks = books.filter((book) =>
     book.title.toLowerCase().includes(searchInput.toLowerCase())
   );
@@ -24,7 +23,7 @@ const BookList = () => {
   return (
     <section className="container">
 
-      {/* 🔹 Zoekbalk */}
+      {/* 🔍 Zoekbalk */}
       <div className="search">
         <input
           type="text"
@@ -35,10 +34,10 @@ const BookList = () => {
         />
       </div>
 
-      {/* 🔹 Totaal aantal boeken (gefilterd) */}
+    
       <BookCounter aantal={filteredBooks.length} />
 
-      {/* 🔹 Gefilterde boeken weergeven */}
+      
       {filteredBooks.map((book, index) => (
         <Book
           key={index}
