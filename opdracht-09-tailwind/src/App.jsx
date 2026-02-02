@@ -27,11 +27,11 @@ function App() {
         </div>
 
         {/* Image */}
-        <img
-          src="/workcation.jpg"
+        <div
+          className="w-full h-48 bg-cover bg-center"
+          style={{ backgroundImage: 'url(https://images.unsplash.com/photo-1452784444945-3f422708fe5e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=512&q=80)' }}
           alt="Workcation"
-          className="w-full h-48 object-cover"
-        />
+        ></div>
 
         {/* Text Content */}
         <div className="p-6 space-y-3">
